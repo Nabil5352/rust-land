@@ -17,6 +17,16 @@ fn main() {
 
     //println!("{}", s); // s no longer valid
     // println!("{}", x); // x is valid
+
+    let s1 = gives_ownership();
+    let s2 = String::from("hello");
+    let s3 = takes_and_gives_back(s2); 
+    // s2 is moved into takes_and_gives_back,
+    // which also moves into return value into s3
+
+    let (s4, len) = calculate_length(s3);
+    println!("The length of '{}' is {}", s4, len);
+
 } // here, x goes out of scope, then s.
 // But because s's value was moved, nothing special happens
 
@@ -50,3 +60,16 @@ fn takes_ownership(param: String) {
 fn makes_copy(param: i32) {
     println!("{}", param);
 } // Here, param goes out of scope. Nothing special happens.
+
+fn gives_ownership() -> String {
+    // gives ownership will move its return value into the function that calls it
+    let s = String::from("hello"); // s comes into scope
+    s // s is returned and moves out to the calling function
+}
+
+fn takes_and_gives_back(s: String) -> String {
+    // s comes into scope
+    s // s is returned and moves out to the calling function
+}
+
+fn calculate_length()
