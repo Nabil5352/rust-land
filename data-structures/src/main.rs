@@ -72,4 +72,8 @@ fn takes_and_gives_back(s: String) -> String {
     s // s is returned and moves out to the calling function
 }
 
-fn calculate_length()
+fn calculate_length(s: String) -> (String, usize) {
+    let length = s.len(); // len() returns the length of a String
+
+    (s, length)
+}
