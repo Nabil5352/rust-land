@@ -18,14 +18,11 @@ fn main() {
     //println!("{}", s); // s no longer valid
     // println!("{}", x); // x is valid
 
-    let s1 = gives_ownership();
-    let s2 = String::from("hello");
-    let s3 = takes_and_gives_back(s2); 
-    // s2 is moved into takes_and_gives_back,
-    // which also moves into return value into s3
+    let mut s1 = gives_ownership();
+    change(&mut s1);
 
-    let (s4, len) = calculate_length(s3);
-    println!("The length of '{}' is {}", s4, len);
+    let len = calculate_length(&mut s1);
+    println!("The length of '{}' is {}", s1, len);
 
 } // here, x goes out of scope, then s.
 // But because s's value was moved, nothing special happens
@@ -67,13 +64,11 @@ fn gives_ownership() -> String {
     s // s is returned and moves out to the calling function
 }
 
-fn takes_and_gives_back(s: String) -> String {
-    // s comes into scope
-    s // s is returned and moves out to the calling function
-}
+fn calculate_length(s: &mut String) -> usize { // s is a reference to a String
+    s.len()
+} // Here, s goes out of scope. But because it does not have ownership of what
+// it referes to, nothing happens.
 
-fn calculate_length(s: String) -> (String, usize) {
-    let length = s.len(); // len() returns the length of a String
-
-    (s, length)
+fn change(s: &mut String) {
+    s.push_str(", world")
 }
