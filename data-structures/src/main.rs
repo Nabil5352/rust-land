@@ -24,6 +24,10 @@ fn main() {
     let len = calculate_length(&mut s1);
     println!("The length of '{}' is {}", s1, len);
 
+    dangling_reference();
+
+    slice();
+
 } // here, x goes out of scope, then s.
 // But because s's value was moved, nothing special happens
 
@@ -71,4 +75,45 @@ fn calculate_length(s: &mut String) -> usize { // s is a reference to a String
 
 fn change(s: &mut String) {
     s.push_str(", world")
+}
+
+fn dangling_reference() -> String {
+    let s = String::from("hello");
+
+    //&s // problem
+    s // solution
+}
+
+fn slice() {
+    let s = String::from("Hello world");
+    let word = first_word(&s);
+    //s.clear();
+    println!("Word length is {}", word);
+
+    //Slicing
+    let slice1 = &word[0..2];
+    let slice1_same = &word[..2];
+    println!("Syntax 1: Slicing from 0 to 2: {}", slice1);
+    println!("Syntax 2: Slicing from 0 to 2: {}", slice1_same);
+
+    let len = word.len();
+    let slice2 = &word[2..len];
+    let slice2_same = &word[2..];
+    println!("Syntax 1: Slicing from 2 to last: {}", slice2);
+    println!("Syntax 2: Slicing from 2 to last: {}", slice2_same);
+
+    let full_slice = &word[..];
+    println!("Full slice: {}", full_slice);
+}
+
+fn first_word(s: &str) -> &str {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+
+    &s[..]
 }
