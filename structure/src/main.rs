@@ -5,9 +5,25 @@ struct User {
     active: bool,
 }
 
+#[derive(Debug)]
 struct Rectangle {
     width: u32,
     height: u32
+}
+
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        self.width > other.width && self.height > other.height
+    }
+
+    // associated function
+    fn square(size: u32) -> Rectangle {
+        Rectangle {width: size, height: size}
+    }
 }
 
 fn main() {
@@ -46,6 +62,21 @@ fn rectangle() {
     // way 3: struct
     let rect1 = Rectangle { width: 30, height: 50 };
     println!("Way 3: The area of the rectangle is {} square pixels", area3(&rect1));
+
+    // debug print
+    println!("rect1 is {:#?}", rect1);
+
+    // methon on Rectangle struct
+    println!("Area method on Rectangle struct. Area: {}", rect1.area());
+
+    let rect2 = Rectangle { width: 30, height: 50 };
+    let rect3 = Rectangle { width: 10, height: 40 };
+    let rect4 = Rectangle { width: 60, height: 45 };
+
+    println!("Can hold: {}", rect2.can_hold(&rect3));
+    println!("Can hold: {}", rect3.can_hold(&rect4));
+
+    println!("Associated function. Square: {:#?}", Rectangle::square(3));
 }
 
 fn area1(width: u32, height: u32) -> u32 {
