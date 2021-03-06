@@ -4,6 +4,10 @@ fn main() {
     vectors();
 
     reading_vector();
+
+    iterate_vector();
+
+    enum_collection();
 }
 
 fn vectors() {
@@ -44,4 +48,33 @@ fn reading_vector() {
     for i in &v {
         println!("{}", i);
     }
+}
+
+fn iterate_vector() {
+    let v = vec![100, 32, 57];
+
+    println!("Immutable for loop");
+    for i in &v {
+        println!("{}", i);
+    }
+
+    let mut x = vec![100, 32, 57];
+    println!("Mutable for loop");
+    for i in &mut x {
+        println!("{}", *i + 50);
+    }
+}
+
+enum SpreadsheetCell {
+    Int(i32),
+    Float(f64),
+    Text(String),
+}
+
+fn enum_collection() {
+    let _row = vec![
+        SpreadsheetCell::Int(3),
+        SpreadsheetCell::Text(String::from("blue")),
+        SpreadsheetCell::Float(10.12),
+    ];
 }
