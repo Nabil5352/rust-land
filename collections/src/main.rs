@@ -8,6 +8,8 @@ fn main() {
     iterate_vector();
 
     enum_collection();
+
+    strings();
 }
 
 fn vectors() {
@@ -77,4 +79,42 @@ fn enum_collection() {
         SpreadsheetCell::Text(String::from("blue")),
         SpreadsheetCell::Float(10.12),
     ];
+}
+
+fn strings() {
+    // Approach 1
+    let s1 = String::from("Initial contents 1");
+
+    // Approach 2
+    let s2 = "Initial contents 2".to_string();
+
+    // Approach 3
+    let data = "Initial contents 3";
+    let s3 = data.to_string();
+
+    println!("{}\n{}\n{}", s1, s2, s3);
+
+    // Append String : Approach 1
+    let mut s4 = String::from("foo");
+    let s5 = "bar";
+    s4.push_str(s5);
+    println!("s4 is {}, s5 is {}", s4, s5);
+
+    // Append String : Approach 2
+    let s6 = String::from("Hello, ");
+    let s7 = String::from("world!");
+    let s8 = s6 + &s7;
+    println!("s8 is {}", s8);
+
+    // format! macro
+    let s10 = String::from("tic");
+    let s11 = String::from("tac");
+    let s12 = String::from("toe");
+    let macro_str = format!("{}-{}-{}", s10, s11, s12);
+    println!("macro_str is {}", macro_str);
+
+    // String index
+    let s9 = String::from("hello");
+    let s_index = &s9[0];
+    println!("String index {}", s_index);
 }
