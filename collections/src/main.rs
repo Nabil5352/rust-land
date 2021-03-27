@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 fn main() {
     println!("Hello, collections!");
 
@@ -10,6 +12,8 @@ fn main() {
     enum_collection();
 
     strings();
+
+    hash_map();
 }
 
 fn vectors() {
@@ -115,6 +119,60 @@ fn strings() {
 
     // String index
     let s9 = String::from("hello");
-    let s_index = &s9[0];
+    let s_index = &s9[0..1];
     println!("String index {}", s_index);
+
+
+    // String iteration
+    let s13 = "Deadlock";
+
+    println!("Char output");
+    for c in s13.chars() {
+        println!("{}", c);
+    }
+
+    println!("Byte output");
+    for b in s13.bytes() {
+        println!("{}", b);
+    }
+}
+
+fn hash_map() {
+    // Approach 1
+    let mut scores = HashMap::new();
+
+    scores.insert(String::from("Blue"), 10);
+    scores.insert(String::from("Yellow"), 50);
+    println!("{:?}", scores);
+
+    // Approach 2
+    let teams = vec![String::from("Blue"), String::from("Yellow")];
+    let Initial_scores = vec![10, 50];
+
+    let scores2: HashMap<_, _> = teams.iter().zip(Initial_scores.iter()).collect();
+
+    // access
+    let team_name = String::from("Blue");
+    let score = scores.get(&team_name);
+
+    // access through loop
+    for (key, value) in &scores {
+        println!("{}: {}", key, value);
+    }
+
+    // Only inserting a value if the key has no value
+    scores.entry(String::from("Blue")).or_insert(11);
+    scores.entry(String::from("Red")).or_insert(100);
+    println!("{:?}", scores);
+
+    // iterating
+    let text = "hello world wonderful world";
+    let mut map = HashMap::new();
+
+    for word in text.split_whitespace() {
+        let count = map.entry(word).or_insert(0);
+        *count += 1;
+    }
+
+    println!("{:?}", map);
 }
